@@ -1,0 +1,20 @@
+name: eatmydatatest
+
+on: [push, workflow_dispatch]
+
+jobs:
+  macos:
+    runs-on: 'macos-latest'
+    steps:
+    - run: brew untap homebrew/cask
+    - run: brew untap homebrew/core
+    # Just remove packages which are outdated in the image and are dependencies
+    - run: brew rm aws-sam-cli yq go gh gradle sbt azure/bicep/bicep imagemagick git virtualbox
+      #harfbuzz libnghttp2 qemu krb5 openldap
+    - run: brew cleanup
+    - run: brew update
+    - run: brew upgrade
+    - run: brew install libeatmydata
+    - run: brew config
+    - run: brew doctor
+    - run: eatmydata ls /
