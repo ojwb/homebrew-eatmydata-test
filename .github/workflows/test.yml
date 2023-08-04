@@ -19,6 +19,6 @@ jobs:
     - run: brew install libeatmydata
     - run: brew config
     - run: brew doctor
-    - run: eatmydata ls / || true
-    - run: patch `which eatmydata` candidate-fix.patch
-    - run: eatmydata ls /
+    - run: gcc -Wall -W -O2 testeatmydata.c -o testeatmydata
+    - run: ./testeatmydata < /dev/null 2> /dev/null
+    - run: eatmydata ./testeatmydata < /dev/null 2> /dev/null
